@@ -1,54 +1,46 @@
 package ua.foxminded.hibernate.school.dao;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
-
 import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Service
 public class JPAGroupService {
-  private static final String WRONG = "oops something went wrong";
+	private final GroupRepository groupRepository;
 
-  private final GroupRepository groupDao;
+	public JPAGroupService(GroupRepository groupRepository) {
+		this.groupRepository = groupRepository;
+	}
 
-  public JPAGroupService(GroupRepository groupDao) {
-    this.groupDao = groupDao;
-  }
+	public List<Group> findGroupsWithLessOrEqualsStudents(int students) {
+		return groupRepository.findGroupsWithLessOrEqualsStudents(students);
+	}
 
-  public List<Group> findGroupsWithLessOrEqualsStudents(int students) {
-    return groupDao.findGroupsWithLessOrEqualsStudents(students);
-  }
+	public int createGroup(Group group) {
+		Group savedGroup = groupRepository.save(group);
+		return savedGroup.getId();
+	}
 
-  public int createGroup(Group group) {
-    int result = groupDao.createGroup(group);
+	public int editGroupName(String groupName, String newGroupName) {
+		Optional<Group> optionalGroup = groupRepository.findByGroupName(groupName);
 
-    if (result < 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
+		if (optionalGroup.isEmpty()) {
+			throw new IllegalArgumentException("Course not found");
+		}
+		Group group = optionalGroup.get();
+		group.setGroupName(newGroupName);
+		Group savedGroup = groupRepository.save(group);
+		return savedGroup.getId();
+	}
 
-  public int editGroupName(String groupName, String newGroupName) {
-    int result = groupDao.editGroupName(groupName, newGroupName);
+	public int deleteGroupByName(String groupName) {
+		return groupRepository.deleteGroupByName(groupName);
+	}
 
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
-
-  public int deleteGroupByName(String groupName) {
-    int result = groupDao.deleteGroupByName(groupName);
-
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
-
-  public List<Group> showAllGroups() {
-    return groupDao.showAllGroups();
-  }
+	public List<Group> showAllGroups() {
+		return groupRepository.findAll();
+	}
 
 }

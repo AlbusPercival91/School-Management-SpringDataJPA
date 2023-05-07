@@ -1,21 +1,30 @@
 package ua.foxminded.hibernate.school.dao.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
-
+	@Modifying
+	@Query("SELECT g FROM Group g JOIN Student s ON g.id = s.groupId GROUP BY g HAVING COUNT(s) <= :students")
 	public List<Group> findGroupsWithLessOrEqualsStudents(Integer students);
 
-	public int createGroup(Group group);
+	@Modifying
+	@Query("SELECT g FROM Group g WHERE g.groupName = :groupName")
+	Optional<Group> findByGroupName(@Param("groupeName") String groupName);
 
-	public int editGroupName(String groupName, String newGroupName);
+	@Modifying
+	@Query("UPDATE Group c SET c.groupName = :newGroupName WHERE c.groupName = :groupName")
+	int editGroupName(String groupName, String newGroupName);
 
-	public int deleteGroupByName(String groupName);
-
-	public List<Group> showAllGroups();
+	@Modifying
+	@Query("DELETE FROM Group c WHERE c.groupName = :groupName")
+	int deleteGroupByName(String groupeName);
 
 }
