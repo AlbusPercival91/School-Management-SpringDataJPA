@@ -1,53 +1,47 @@
 package ua.foxminded.hibernate.school.dao;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
-
 import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.entity.Course;
 
 @Service
 public class JPACourseService {
-  private static final String WRONG = "oops something went wrong";
+	private final CourseRepository courseRepository;
 
-  private final CourseRepository courseDao;
+	public JPACourseService(CourseRepository courseRepository) {
+		this.courseRepository = courseRepository;
+	}
 
-  public JPACourseService(CourseRepository courseDao) {
-    this.courseDao = courseDao;
-  }
+	public List<Course> findCoursesWithLessOrEqualsStudents(int students) {
+		return courseRepository.findCoursesWithLessOrEqualsStudents(students);
+	}
 
-  public List<Course> findCoursesWithLessOrEqualsStudents(int students) {
-    return courseDao.findCoursesWithLessOrEqualsStudents(students);
-  }
+	public int createCourse(Course course) {
+		Course savedCourse = courseRepository.save(course);
+		return savedCourse.getId();
+	}
 
-  public int createCourse(Course course) {
-    int result = courseDao.createCourse(course);
+	public int editCourseNameAndDescription(String courseName, String newCourseName, String newDescription) {
+		Optional<Course> optionalCourse = courseRepository.findByCourseName(courseName);
+		if (optionalCourse.isEmpty()) {
+			throw new IllegalArgumentException("Course not found");
+		}
 
-    if (result < 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
+		Course course = optionalCourse.get();
+		course.setCourseName(newCourseName);
+		course.setCourseDescription(newDescription);
 
-  public int editCourseNameAndDescription(String courseName, String newCourseName, String newDescription) {
-    int result = courseDao.editCourseNameAndDescription(courseName, newCourseName, newDescription);
+		Course savedCourse = courseRepository.save(course);
+		return savedCourse.getId();
+	}
 
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
+	public int deleteCourseByName(String courseName) {
+		return courseRepository.deleteCourseByName(courseName);
+	}
 
-  public int deleteCourseByName(String courseName) {
-    int result = courseDao.deleteCourseByName(courseName);
-
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
-
-  public List<Course> showAllCourses() {
-    return courseDao.showAllCourses();
-  }
+	public List<Course> showAllCourses() {
+		return courseRepository.findAll();
+	}
 }
