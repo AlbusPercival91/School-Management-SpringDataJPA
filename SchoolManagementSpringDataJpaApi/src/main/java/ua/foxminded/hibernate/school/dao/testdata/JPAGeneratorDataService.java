@@ -27,7 +27,7 @@ public class JPAGeneratorDataService {
 
 	private final GeneratorDataDao dataRepository;
 
-	public JPAGeneratorDataService(JPAGeneratorDataDao dataRepository) {
+	public JPAGeneratorDataService(GeneratorDataDao dataRepository) {
 		this.dataRepository = dataRepository;
 	}
 
