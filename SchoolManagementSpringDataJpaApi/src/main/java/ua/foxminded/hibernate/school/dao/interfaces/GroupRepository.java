@@ -17,7 +17,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 	@Modifying
 	@Query("SELECT g FROM Group g WHERE g.groupName = :groupName")
-	Optional<Group> findByGroupName(@Param("groupeName") String groupName);
+	Optional<Group> findByGroupName(@Param("groupName") String groupName);
 
 	@Modifying
 	@Query("UPDATE Group c SET c.groupName = :newGroupName WHERE c.groupName = :groupName")
@@ -25,6 +25,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 	@Modifying
 	@Query("DELETE FROM Group c WHERE c.groupName = :groupName")
-	int deleteGroupByName(String groupeName);
+	int deleteGroupByName(@Param("groupName")String groupeName);
 
 }
