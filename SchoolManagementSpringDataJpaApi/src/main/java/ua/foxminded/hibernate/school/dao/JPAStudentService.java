@@ -1,66 +1,68 @@
 package ua.foxminded.hibernate.school.dao;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
-
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
 import ua.foxminded.hibernate.school.entity.Student;
 
 @Service
 public class JPAStudentService {
-  private static final String WRONG = "oops something went wrong";
+	private static final String WRONG = "oops something went wrong";
 
-  private final StudentRepository studentDao;
+	private final StudentRepository studentRepository;
 
-  public JPAStudentService(StudentRepository studentDao) {
-    this.studentDao = studentDao;
-  }
+	public JPAStudentService(StudentRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
 
-  public List<Student> findStudentsRelatedToCourse(String courseName) {
-    return studentDao.findStudentsRelatedToCourse(courseName);
-  }
+	public List<Student> findStudentsRelatedToCourse(String courseName) {
+		return studentRepository.findStudentsRelatedToCourse(courseName);
+	}
 
-  public int addNewStudent(Student student) {
-    int result = studentDao.addNewStudent(student);
+	public int addNewStudent(Student student) {
+		Student savedStudent = studentRepository.save(student);
+		return savedStudent.getId();
+	}
 
-    if (result == 0) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
+	public int deleteStudentByID(int id) {
+		studentRepository.deleteById(id);
+		return 1;
+	}
 
-  public int deleteStudentByID(int id) {
-    return studentDao.deleteStudentByID(id);
-  }
+	public List<Integer> getStudentID() {
+		return studentRepository.getStudentID();
+	}
 
-  public List<Integer> getStudentID() {
-    return studentDao.getStudentID();
-  }
+	public int addStudentToTheCourse(Integer studentId, String courseName) {
+		int result = studentRepository.addStudentToTheCourse(studentId, courseName);
 
-  public int addStudentToTheCourse(Integer studentId, String courseName) {
-    int result = studentDao.addStudentToTheCourse(studentId, courseName);
+		if (result != 1) {
+			throw new IllegalStateException(WRONG);
+		}
+		return result;
+	}
 
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
+	public int removeStudentFromCourse(Integer studentId, String courseName) {
+		return studentRepository.removeStudentFromCourse(studentId, courseName);
+	}
 
-  public int removeStudentFromCourse(Integer studentId, String courseName) {
-    return studentDao.removeStudentFromCourse(studentId, courseName);
-  }
+	public int updateStudentById(Integer studentId, Student student) {
+		Optional<Student> optionalStudent = studentRepository.findById(studentId);
 
-  public int updateStudentById(Integer studentId, Student student) {
-    int result = studentDao.updateStudentById(studentId, student);
+		if (optionalStudent.isEmpty()) {
+			throw new IllegalArgumentException("Course not found");
+		}
+		Student stud = optionalStudent.get();
+		stud.setGroupId(student.getGroupId());
+		stud.setFirstName(student.getFirstName());
+		stud.setLastName(student.getLastName());
+		Student savedStudent = studentRepository.save(stud);
+		return savedStudent.getId();
+	}
 
-    if (result != 1) {
-      throw new IllegalStateException(WRONG);
-    }
-    return result;
-  }
-
-  public List<Student> showAllStudents() {
-    return studentDao.showAllStudents();
-  }
+	public List<Student> showAllStudents() {
+		return studentRepository.findAll();
+	}
 
 }
