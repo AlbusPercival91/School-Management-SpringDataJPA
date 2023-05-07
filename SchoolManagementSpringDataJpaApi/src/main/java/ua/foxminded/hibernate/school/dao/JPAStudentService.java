@@ -3,16 +3,16 @@ package ua.foxminded.hibernate.school.dao;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-import ua.foxminded.hibernate.school.dao.interfaces.StudentDao;
+import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
 import ua.foxminded.hibernate.school.entity.Student;
 
 @Service
 public class JPAStudentService {
   private static final String WRONG = "oops something went wrong";
 
-  private final StudentDao studentDao;
+  private final StudentRepository studentDao;
 
-  public JPAStudentService(StudentDao studentDao) {
+  public JPAStudentService(StudentRepository studentDao) {
     this.studentDao = studentDao;
   }
 

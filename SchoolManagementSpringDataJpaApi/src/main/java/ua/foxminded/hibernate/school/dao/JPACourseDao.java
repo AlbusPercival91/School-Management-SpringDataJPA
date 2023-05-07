@@ -8,12 +8,12 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-import ua.foxminded.hibernate.school.dao.interfaces.CourseDao;
+import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.entity.Course;
 
 @Repository
 @Transactional
-public class JPACourseDao implements CourseDao {
+public class JPACourseDao implements CourseRepository {
 
   @PersistenceContext
   private final EntityManager entityManager;

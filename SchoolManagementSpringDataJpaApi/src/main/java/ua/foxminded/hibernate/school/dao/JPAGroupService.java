@@ -3,16 +3,16 @@ package ua.foxminded.hibernate.school.dao;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-import ua.foxminded.hibernate.school.dao.interfaces.GroupDao;
+import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Service
 public class JPAGroupService {
   private static final String WRONG = "oops something went wrong";
 
-  private final GroupDao groupDao;
+  private final GroupRepository groupDao;
 
-  public JPAGroupService(GroupDao groupDao) {
+  public JPAGroupService(GroupRepository groupDao) {
     this.groupDao = groupDao;
   }
 

@@ -8,12 +8,12 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-import ua.foxminded.hibernate.school.dao.interfaces.GroupDao;
+import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Repository
 @Transactional
-public class JPAGroupDao implements GroupDao {
+public class JPAGroupDao implements GroupRepository {
 
   @PersistenceContext
   private final EntityManager entityManager;

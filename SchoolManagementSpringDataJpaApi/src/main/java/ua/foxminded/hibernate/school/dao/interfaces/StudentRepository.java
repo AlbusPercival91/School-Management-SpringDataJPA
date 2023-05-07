@@ -1,10 +1,12 @@
 package ua.foxminded.hibernate.school.dao.interfaces;
 
 import java.util.List;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ua.foxminded.hibernate.school.entity.Student;
 
-public interface StudentDao {
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Integer>{
 
   int addNewStudent(Student student);
 
