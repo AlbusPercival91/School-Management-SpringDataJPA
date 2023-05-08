@@ -20,7 +20,6 @@ import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentCourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
-import ua.foxminded.hibernate.school.dao.service.JPACourseService;
 import ua.foxminded.hibernate.school.dao.testdata.JPAGeneratorDataDao;
 import ua.foxminded.hibernate.school.entity.Course;
 import ua.foxminded.hibernate.school.testdata.CourseMaker;
@@ -47,6 +46,9 @@ class JPACourseDaoTest {
 	@Autowired
 	private StudentCourseRepository studentCourseRepository;
 
+	@Autowired
+	private JPACourseService courseService;
+
 	private TestDataGenerator testData;
 
 	@BeforeEach
@@ -61,7 +63,7 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		List<Course> actual = courseRepository.findCoursesWithLessOrEqualsStudents(number);
+		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(number);
 		Assertions.assertNotNull(actual);
 
 		Assertions.assertTrue(actual.size() > 0);
@@ -72,7 +74,7 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		List<Course> actual = courseRepository.findCoursesWithLessOrEqualsStudents(0);
+		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}
@@ -84,9 +86,9 @@ class JPACourseDaoTest {
 	void testEditCourseNameAndDescription_ShouldReturnOneIfCourseUpdated(String courseName, String courseDescription,
 			String newCourseName, String newCourseDescription) {
 		Course course = new Course(courseName, courseDescription);
-		courseRepository.save(course);
+		courseService.createCourse(course);
 
-		Assertions.assertEquals(1, courseRepository.editCourseNameAndDescription(course.getCourseName(), newCourseName,
+		Assertions.assertEquals(1, courseService.editCourseNameAndDescription(course.getCourseName(), newCourseName,
 				newCourseDescription));
 	}
 
@@ -95,16 +97,16 @@ class JPACourseDaoTest {
 	@CsvSource({ "History, TBD", "Swimming, TBD", "Paint, TBD-3", "Spanish, TBD-6", "Geography, TBD-2" })
 	void testDeleteCourseByName_ShouldReturnOneIfCourseDeleted(String courseName, String courseDescription) {
 		Course course = new Course(courseName, courseDescription);
-		courseRepository.save(course);
+		courseService.createCourse(course);
 
-		Assertions.assertEquals(1, courseRepository.deleteCourseByName(course.getCourseName()));
+		Assertions.assertEquals(1, courseService.deleteCourseByName(course.getCourseName()));
 	}
 
 	@Test
 	@DisplayName("Should return 10 when initiated course test data")
 	void testShowAllCourses_ShouldReturnAllCourses() {
 		testData.createCourse();
-		List<Course> actual = courseRepository.findAll();
+		List<Course> actual = courseService.showAllCourses();
 
 		Assertions.assertEquals(10, actual.size());
 	}
