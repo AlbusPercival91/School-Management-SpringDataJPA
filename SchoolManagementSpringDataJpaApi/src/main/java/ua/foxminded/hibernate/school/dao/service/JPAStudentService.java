@@ -1,4 +1,4 @@
-package ua.foxminded.hibernate.school.dao;
+package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;

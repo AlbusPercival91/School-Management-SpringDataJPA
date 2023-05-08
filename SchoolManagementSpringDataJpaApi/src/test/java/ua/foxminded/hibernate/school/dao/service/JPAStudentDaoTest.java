@@ -1,4 +1,4 @@
-package ua.foxminded.hibernate.school.dao;
+package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -81,7 +81,7 @@ class JPAStudentDaoTest {
 		studentRepository.save(student);
 		List<Student> actual = studentRepository.findAll();
 
-		Assertions.assertEquals(student.toString(), actual.toString());
+		Assertions.assertEquals(student, actual.get(0));
 	}
 
 	@Test
@@ -105,23 +105,28 @@ class JPAStudentDaoTest {
 	void testRemoveStudentFromCourse_ShouldReturnOneIfStudentRemovedFromCourse() {
 		testData.createCourse();
 		testData.createStudent();
-		Student student = new Student(4, "Harry", "Potter");
-		Course course = new Course("Potions", "TBD");
-		StudentCourseRelation relation = new StudentCourseRelation(student.getId(), course.getId());
+		Optional<Student> student = studentRepository.findById(17);
+		Optional<Course> course = courseRepository.findById(3);
+		StudentCourseRelation relation = new StudentCourseRelation(student.get().getId(), course.get().getId());
 		studentCourseRepository.save(relation);
-		int deleted = studentRepository.removeStudentFromCourse(student.getId(), course.getCourseName());
+		studentCourseRepository.flush();
+		int deleted = studentRepository.removeStudentFromCourse(student.get().getId(), course.get().getCourseName());
 
 		Assertions.assertEquals(1, deleted);
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "4, Harry, Potter, 3, Ron, Wesley", "6, Draco, Malfoy, 7, Hermione, Granger" })
-	void testUpdateStudentById_ShouldReturnEqualsStringsWhenStudentUpdated(int groupId, String name, String lastName,
-			int newGroupId, String newName, String newLastName) {
-		Student student = new Student(groupId, name, lastName);
+	void testUpdateStudentById_ShouldReturnEqualsStringsWhenStudentUpdated(int groupId, String firstName,
+			String lastName, int newGroupId, String newName, String newLastName) {
+		Student student = new Student(groupId, firstName, lastName);
 		studentRepository.save(student);
+
+		studentRepository.flush();
+
 		Student updatedStudent = new Student(newGroupId, newName, newLastName);
 		studentRepository.updateStudentById(student.getId(), updatedStudent);
+
 		Optional<Student> actualStudent = studentRepository.findById(student.getId());
 		String actual = actualStudent.get().getId() + " " + actualStudent.get().getGroupId() + " "
 				+ actualStudent.get().getFirstName() + " " + actualStudent.get().getLastName();

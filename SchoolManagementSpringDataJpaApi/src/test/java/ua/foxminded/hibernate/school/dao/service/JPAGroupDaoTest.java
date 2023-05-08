@@ -1,4 +1,4 @@
-package ua.foxminded.hibernate.school.dao;
+package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -17,6 +17,7 @@ import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentCourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
+import ua.foxminded.hibernate.school.dao.service.JPAGroupService;
 import ua.foxminded.hibernate.school.dao.testdata.JPAGeneratorDataDao;
 import ua.foxminded.hibernate.school.entity.Group;
 import ua.foxminded.hibernate.school.testdata.CourseMaker;

@@ -3,7 +3,7 @@ package ua.foxminded.hibernate.school.facade;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
-import ua.foxminded.hibernate.school.dao.JPAGroupService;
+import ua.foxminded.hibernate.school.dao.service.JPAGroupService;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Slf4j
