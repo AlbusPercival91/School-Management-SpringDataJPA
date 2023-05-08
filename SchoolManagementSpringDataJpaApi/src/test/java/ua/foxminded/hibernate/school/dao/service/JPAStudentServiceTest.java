@@ -30,7 +30,7 @@ import ua.foxminded.hibernate.school.testdata.StudentMaker;
 @ActiveProfiles("test-container")
 @Sql(scripts = { "/drop_data.sql", "/init_tables.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class JPAStudentDaoTest {
+class JPAStudentServiceTest {
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -43,6 +43,9 @@ class JPAStudentDaoTest {
 
 	@Autowired
 	private StudentCourseRepository studentCourseRepository;
+
+	@Autowired
+	private JPAStudentService studentService;
 
 	private TestDataGenerator testData;
 
@@ -59,7 +62,7 @@ class JPAStudentDaoTest {
 		testData.createCourseStudentRelation();
 
 		for (String s : new CourseMaker().generateCourses()) {
-			long studentCount = studentRepository.findStudentsRelatedToCourse(s).stream()
+			long studentCount = studentService.findStudentsRelatedToCourse(s).stream()
 					.filter(course -> course.toString().trim().contains(" ")).count();
 			Assertions.assertTrue(studentCount > 0);
 		}
@@ -72,14 +75,14 @@ class JPAStudentDaoTest {
 		testData.createCourse();
 		testData.createStudent();
 
-		Assertions.assertEquals(1, studentRepository.addStudentToTheCourse(studentId, course));
+		Assertions.assertEquals(1, studentService.addStudentToTheCourse(studentId, course));
 	}
 
 	@Test
 	void testAddNewStudent_ShouldReturnEqualsWhenNewStudentCreated() {
 		Student student = new Student(4, "Harry", "Potter");
 		studentRepository.save(student);
-		List<Student> actual = studentRepository.findAll();
+		List<Student> actual = studentService.showAllStudents();
 
 		Assertions.assertEquals(student, actual.get(0));
 	}
@@ -88,15 +91,13 @@ class JPAStudentDaoTest {
 	void testDeleteStudentByID_ShouldReturnOneIfStudentRemoved() {
 		Student student = new Student(1, "Albus", "Dambldor");
 		studentRepository.save(student);
-		Assertions.assertEquals(1, studentRepository.findAll().size());
-
-		studentRepository.deleteById(student.getId());
-		Assertions.assertTrue(studentRepository.findAll().isEmpty());
+		Assertions.assertEquals(1, studentService.deleteStudentByID(student.getId()));
+		Assertions.assertTrue(studentService.showAllStudents().isEmpty());
 	}
 
 	void testGetStudentID_ShouldReturnAllStudentsID() {
 		testData.createStudent();
-		List<Integer> actual = studentRepository.getStudentID();
+		List<Integer> actual = studentService.getStudentID();
 
 		Assertions.assertEquals(200, actual.size());
 	}
@@ -110,7 +111,7 @@ class JPAStudentDaoTest {
 		StudentCourseRelation relation = new StudentCourseRelation(student.get().getId(), course.get().getId());
 		studentCourseRepository.save(relation);
 		studentCourseRepository.flush();
-		int deleted = studentRepository.removeStudentFromCourse(student.get().getId(), course.get().getCourseName());
+		int deleted = studentService.removeStudentFromCourse(student.get().getId(), course.get().getCourseName());
 
 		Assertions.assertEquals(1, deleted);
 	}
@@ -120,12 +121,10 @@ class JPAStudentDaoTest {
 	void testUpdateStudentById_ShouldReturnEqualsStringsWhenStudentUpdated(int groupId, String firstName,
 			String lastName, int newGroupId, String newName, String newLastName) {
 		Student student = new Student(groupId, firstName, lastName);
-		studentRepository.save(student);
-
-		studentRepository.flush();
+		studentService.addNewStudent(student);
 
 		Student updatedStudent = new Student(newGroupId, newName, newLastName);
-		studentRepository.updateStudentById(student.getId(), updatedStudent);
+		studentService.updateStudentById(student.getId(), updatedStudent);
 
 		Optional<Student> actualStudent = studentRepository.findById(student.getId());
 		String actual = actualStudent.get().getId() + " " + actualStudent.get().getGroupId() + " "
@@ -139,7 +138,7 @@ class JPAStudentDaoTest {
 	@Test
 	void testShowAllStudents_ShouldReturnAllStudents() {
 		testData.createStudent();
-		List<Student> actual = studentRepository.findAll();
+		List<Student> actual = studentService.showAllStudents();
 
 		Assertions.assertEquals(200, actual.size());
 	}
