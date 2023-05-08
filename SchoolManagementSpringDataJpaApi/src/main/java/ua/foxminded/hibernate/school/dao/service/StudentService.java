@@ -7,12 +7,12 @@ import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
 import ua.foxminded.hibernate.school.entity.Student;
 
 @Service
-public class JPAStudentService {
+public class StudentService {
 	private static final String WRONG = "oops something went wrong";
 
 	private final StudentRepository studentRepository;
 
-	public JPAStudentService(StudentRepository studentRepository) {
+	public StudentService(StudentRepository studentRepository) {
 		this.studentRepository = studentRepository;
 	}
 

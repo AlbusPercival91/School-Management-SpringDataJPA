@@ -4,16 +4,16 @@ import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import ua.foxminded.hibernate.school.dao.service.JPACourseService;
-import ua.foxminded.hibernate.school.dao.service.JPAStudentService;
+import ua.foxminded.hibernate.school.dao.service.StudentService;
 import ua.foxminded.hibernate.school.entity.Student;
 
 @Slf4j
 @Component
 public class StudentMenuComponents {
-  private final JPAStudentService studentService;
+  private final StudentService studentService;
   private final JPACourseService courseService;
 
-  public StudentMenuComponents(JPAStudentService studentService, JPACourseService courseService) {
+  public StudentMenuComponents(StudentService studentService, JPACourseService courseService) {
     this.studentService = studentService;
     this.courseService = courseService;
   }

@@ -25,12 +25,12 @@ import ua.foxminded.hibernate.school.testdata.GroupMaker;
 import ua.foxminded.hibernate.school.testdata.StudentMaker;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
-		JPAStudentService.class }))
+		StudentService.class }))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test-container")
 @Sql(scripts = { "/drop_data.sql", "/init_tables.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class JPAStudentServiceTest {
+class StudentServiceTest {
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -45,7 +45,7 @@ class JPAStudentServiceTest {
 	private StudentCourseRepository studentCourseRepository;
 
 	@Autowired
-	private JPAStudentService studentService;
+	private StudentService studentService;
 
 	private TestDataGenerator testData;
 
