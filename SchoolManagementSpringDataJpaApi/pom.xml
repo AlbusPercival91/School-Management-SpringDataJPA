@@ -7,7 +7,7 @@
     <version>2.7.8</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
-  <groupId>ua.foxminded.hibernate</groupId>
+  <groupId>ua.foxminded.springdatajpa</groupId>
   <artifactId>SchoolManagement</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>SchoolManagement</name>
