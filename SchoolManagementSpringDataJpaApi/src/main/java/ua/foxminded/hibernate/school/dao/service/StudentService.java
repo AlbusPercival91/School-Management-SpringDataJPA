@@ -2,9 +2,7 @@ package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
 import ua.foxminded.hibernate.school.entity.Student;
@@ -29,9 +27,15 @@ public class StudentService {
 		return savedStudent.getId();
 	}
 
-	public int deleteStudentByID(int id) {
-		studentRepository.deleteById(id);
-		return 1;
+	public int deleteStudentByID(int studentId) {
+		int id = 0;
+		Optional<Student> optionalStudent = studentRepository.findById(studentId);
+
+		if (optionalStudent.isPresent()) {
+			id = optionalStudent.get().getId();
+			studentRepository.deleteById(studentId);
+		}
+		return id;
 	}
 
 	public List<Integer> getStudentID() {
@@ -68,5 +72,4 @@ public class StudentService {
 	public List<Student> showAllStudents() {
 		return studentRepository.findAll();
 	}
-
 }
