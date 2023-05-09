@@ -14,7 +14,7 @@ public class JPAGroupService {
 		this.groupRepository = groupRepository;
 	}
 
-	public List<Group> findGroupsWithLessOrEqualsStudents(int students) {
+	public Optional<Group> findGroupsWithLessOrEqualsStudents(int students) {
 		return groupRepository.findGroupsWithLessOrEqualsStudents(students);
 	}
 

@@ -18,19 +18,19 @@ public class StudentCourseRelation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "checkouts_id")
-	private int id;
+	private Integer id;
 
 	@Column(name = "student_id")
-	private int studentId;
+	private Integer studentId;
 
 	@Column(name = "course_id")
-	private int courseId;
+	private Integer courseId;
 
 	public StudentCourseRelation() {
 
 	}
 
-	public StudentCourseRelation(int studentId, int courseId) {
+	public StudentCourseRelation(Integer studentId, Integer courseId) {
 		this.studentId = studentId;
 		this.courseId = courseId;
 	}

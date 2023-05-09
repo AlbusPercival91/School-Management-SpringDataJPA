@@ -1,6 +1,7 @@
 package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.*;
@@ -42,7 +43,7 @@ class JPAGroupDaoTest {
 
 	@Autowired
 	private StudentCourseRepository studentCourseRepository;
-	
+
 	@Autowired
 	private JPAGroupService groupService;
 
@@ -60,7 +61,7 @@ class JPAGroupDaoTest {
 		testData.createGroup();
 		testData.createStudent();
 		Pattern pattern = Pattern.compile("[a-z]{2}-[0-9]{2}");
-		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(number);
+		Optional<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(number);
 		int matchedPattern = (int) actual.stream().map(Group::toString).map(pattern::matcher).filter(Matcher::find)
 				.count();
 
@@ -71,7 +72,7 @@ class JPAGroupDaoTest {
 	void testFindGroupsWithLessOrEqualsStudents_WhenStudentsZero_ShouldReturnEmptyList() {
 		testData.createGroup();
 		testData.createStudent();
-		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(0);
+		Optional<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}
