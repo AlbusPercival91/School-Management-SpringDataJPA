@@ -10,11 +10,9 @@ import ua.foxminded.hibernate.school.entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-	@Modifying
 	@Query("SELECT s.id FROM Student s")
 	List<Integer> getStudentID();
 
-	@Modifying
 	@Query("""
 			SELECT s FROM Student s
 			     JOIN StudentCourseRelation scr ON s.id = scr.studentId
