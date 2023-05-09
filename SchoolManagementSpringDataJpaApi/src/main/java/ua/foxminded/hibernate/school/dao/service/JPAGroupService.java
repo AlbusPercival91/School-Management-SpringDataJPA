@@ -2,11 +2,15 @@ package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.entity.Group;
 
 @Service
+@Transactional
 public class JPAGroupService {
 	private final GroupRepository groupRepository;
 
@@ -14,7 +18,7 @@ public class JPAGroupService {
 		this.groupRepository = groupRepository;
 	}
 
-	public Optional<Group> findGroupsWithLessOrEqualsStudents(int students) {
+	public Optional<Group> findGroupsWithLessOrEqualsStudents(Integer students) {
 		return groupRepository.findGroupsWithLessOrEqualsStudents(students);
 	}
 

@@ -13,16 +13,17 @@ import ua.foxminded.hibernate.school.entity.Course;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query("SELECT c FROM Course c JOIN StudentCourseRelation scr ON c.id = scr.courseId GROUP BY c HAVING COUNT(scr) <= :students")
-	Optional<Course> findCoursesWithLessOrEqualsStudents(Integer students);
+	Optional<Course> findCoursesWithLessOrEqualsStudents(@Param("students") Integer students);
 
 	@Query("SELECT c FROM Course c WHERE c.courseName = :courseName")
 	Optional<Course> findByCourseName(@Param("courseName") String courseName);
 
 	@Modifying
 	@Query("UPDATE Course c SET c.courseName = :newCourseName, c.courseDescription = :newDescription WHERE c.courseName = :courseName")
-	int editCourseNameAndDescription(String courseName, String newCourseName, String newDescription);
+	int editCourseNameAndDescription(@Param("courseName") String courseName,
+			@Param("newCourseName") String newCourseName, @Param("newDescription") String newDescription);
 
 	@Modifying
 	@Query("DELETE FROM Course c WHERE c.courseName = :courseName")
-	int deleteCourseByName(String courseName);
+	int deleteCourseByName(@Param("courseName") String courseName);
 }

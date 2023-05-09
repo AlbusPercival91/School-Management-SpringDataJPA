@@ -2,11 +2,15 @@ package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.entity.Course;
 
 @Service
+@Transactional
 public class JPACourseService {
 	private final CourseRepository courseRepository;
 

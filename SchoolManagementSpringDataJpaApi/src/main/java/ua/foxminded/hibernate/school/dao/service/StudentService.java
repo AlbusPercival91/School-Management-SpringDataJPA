@@ -2,11 +2,15 @@ package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
 import ua.foxminded.hibernate.school.entity.Student;
 
 @Service
+@Transactional
 public class StudentService {
 	private static final String WRONG = "oops something went wrong";
 
