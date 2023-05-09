@@ -1,7 +1,6 @@
 package ua.foxminded.springdatajpa.school.dao.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.*;
@@ -25,12 +24,12 @@ import ua.foxminded.springdatajpa.school.testdata.GroupMaker;
 import ua.foxminded.springdatajpa.school.testdata.StudentMaker;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
-		JPAGroupService.class }))
+		GroupService.class }))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test-container")
 @Sql(scripts = { "/drop_data.sql", "/init_tables.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class JPAGroupDaoTest {
+class GroupServiceTest {
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -45,7 +44,7 @@ class JPAGroupDaoTest {
 	private StudentCourseRepository studentCourseRepository;
 
 	@Autowired
-	private JPAGroupService groupService;
+	private GroupService groupService;
 
 	private TestDataGenerator testData;
 
@@ -61,7 +60,7 @@ class JPAGroupDaoTest {
 		testData.createGroup();
 		testData.createStudent();
 		Pattern pattern = Pattern.compile("[a-z]{2}-[0-9]{2}");
-		Optional<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(number);
+		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(number);
 		int matchedPattern = (int) actual.stream().map(Group::toString).map(pattern::matcher).filter(Matcher::find)
 				.count();
 
@@ -72,7 +71,7 @@ class JPAGroupDaoTest {
 	void testFindGroupsWithLessOrEqualsStudents_WhenStudentsZero_ShouldReturnEmptyList() {
 		testData.createGroup();
 		testData.createStudent();
-		Optional<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(0);
+		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}

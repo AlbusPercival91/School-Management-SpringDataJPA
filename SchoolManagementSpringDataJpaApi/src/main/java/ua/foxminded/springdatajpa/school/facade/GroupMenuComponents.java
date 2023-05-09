@@ -3,15 +3,15 @@ package ua.foxminded.springdatajpa.school.facade;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
-import ua.foxminded.springdatajpa.school.dao.service.JPAGroupService;
+import ua.foxminded.springdatajpa.school.dao.service.GroupService;
 import ua.foxminded.springdatajpa.school.entity.Group;
 
 @Slf4j
 @Component
 public class GroupMenuComponents {
-	private final JPAGroupService groupService;
+	private final GroupService groupService;
 
-	public GroupMenuComponents(JPAGroupService groupService) {
+	public GroupMenuComponents(GroupService groupService) {
 		this.groupService = groupService;
 	}
 

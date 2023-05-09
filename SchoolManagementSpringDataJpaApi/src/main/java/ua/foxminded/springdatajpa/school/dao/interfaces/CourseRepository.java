@@ -1,5 +1,6 @@
 package ua.foxminded.springdatajpa.school.dao.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,7 +13,7 @@ import ua.foxminded.springdatajpa.school.entity.Course;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query("SELECT c FROM Course c JOIN StudentCourseRelation scr ON c.id = scr.courseId GROUP BY c HAVING COUNT(scr) <= :students")
-	Optional<Course> findCoursesWithLessOrEqualsStudents(@Param("students") Integer students);
+	List<Course> findCoursesWithLessOrEqualsStudents(@Param("students") long maxStudents);
 
 	@Query("SELECT c FROM Course c WHERE c.courseName = :courseName")
 	Optional<Course> findByCourseName(@Param("courseName") String courseName);

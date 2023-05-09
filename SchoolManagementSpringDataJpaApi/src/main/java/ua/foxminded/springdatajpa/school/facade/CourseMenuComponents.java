@@ -3,15 +3,15 @@ package ua.foxminded.springdatajpa.school.facade;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
-import ua.foxminded.springdatajpa.school.dao.service.JPACourseService;
+import ua.foxminded.springdatajpa.school.dao.service.CourseService;
 import ua.foxminded.springdatajpa.school.entity.Course;
 
 @Slf4j
 @Component
 public class CourseMenuComponents {
-	private final JPACourseService courseService;
+	private final CourseService courseService;
 
-	public CourseMenuComponents(JPACourseService courseService) {
+	public CourseMenuComponents(CourseService courseService) {
 		this.courseService = courseService;
 	}
 

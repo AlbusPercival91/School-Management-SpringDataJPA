@@ -48,7 +48,7 @@ class GroupMakerTest {
   }
 
   @ParameterizedTest
-  @MethodSource("ua.foxminded.hibernate.school.testdata.GroupMakerTest#expectedAndActualStreamProvider()")
+  @MethodSource("ua.foxminded.springdatajpa.school.testdata.GroupMakerTest#expectedAndActualStreamProvider()")
   void groupsGenerationAndGroupsAssignation_ShouldBeEquals(boolean expected, boolean actual) {
     assertEquals(expected, actual);
   }

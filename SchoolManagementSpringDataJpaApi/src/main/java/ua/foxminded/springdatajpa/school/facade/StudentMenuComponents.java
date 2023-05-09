@@ -3,7 +3,7 @@ package ua.foxminded.springdatajpa.school.facade;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
-import ua.foxminded.springdatajpa.school.dao.service.JPACourseService;
+import ua.foxminded.springdatajpa.school.dao.service.CourseService;
 import ua.foxminded.springdatajpa.school.dao.service.StudentService;
 import ua.foxminded.springdatajpa.school.entity.Student;
 
@@ -11,9 +11,9 @@ import ua.foxminded.springdatajpa.school.entity.Student;
 @Component
 public class StudentMenuComponents {
 	private final StudentService studentService;
-	private final JPACourseService courseService;
+	private final CourseService courseService;
 
-	public StudentMenuComponents(StudentService studentService, JPACourseService courseService) {
+	public StudentMenuComponents(StudentService studentService, CourseService courseService) {
 		this.studentService = studentService;
 		this.courseService = courseService;
 	}

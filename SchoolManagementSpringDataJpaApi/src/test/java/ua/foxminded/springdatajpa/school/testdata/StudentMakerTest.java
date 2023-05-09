@@ -22,7 +22,7 @@ class StudentMakerTest {
   }
 
   @ParameterizedTest
-  @MethodSource("ua.foxminded.hibernate.school.testdata.StudentMakerTest#expectedAndActualStreamProvider()")
+  @MethodSource("ua.foxminded.springdatajpa.school.testdata.StudentMakerTest#expectedAndActualStreamProvider()")
   void studentGenerationWithNamesAndSurnames_ShouldBeEquals(int expected, int actual) {
     assertEquals(expected, actual);
   }

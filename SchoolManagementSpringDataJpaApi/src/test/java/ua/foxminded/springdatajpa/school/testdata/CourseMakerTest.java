@@ -54,7 +54,7 @@ class CourseMakerTest {
   }
 
   @ParameterizedTest
-  @MethodSource("ua.foxminded.hibernate.school.testdata.CourseMakerTest#expectedAndActualStreamProvider()")
+  @MethodSource("ua.foxminded.springdatajpa.school.testdata.CourseMakerTest#expectedAndActualStreamProvider()")
   void coursesGenerationAndCoursesAssignation_ShouldBeEquals(Object expected, Object actual) {
     assertEquals(expected, actual);
   }

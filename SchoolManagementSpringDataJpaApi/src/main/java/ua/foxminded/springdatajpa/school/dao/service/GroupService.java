@@ -9,15 +9,15 @@ import ua.foxminded.springdatajpa.school.entity.Group;
 
 @Service
 @Transactional
-public class JPAGroupService {
+public class GroupService {
 	private final GroupRepository groupRepository;
 
-	public JPAGroupService(GroupRepository groupRepository) {
+	public GroupService(GroupRepository groupRepository) {
 		this.groupRepository = groupRepository;
 	}
 
-	public Optional<Group> findGroupsWithLessOrEqualsStudents(Integer students) {
-		return groupRepository.findGroupsWithLessOrEqualsStudents(students);
+	public List<Group> findGroupsWithLessOrEqualsStudents(long maxStudents) {
+		return groupRepository.findGroupsWithLessOrEqualsStudents(maxStudents);
 	}
 
 	public int createGroup(Group group) {

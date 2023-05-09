@@ -9,15 +9,15 @@ import ua.foxminded.springdatajpa.school.entity.Course;
 
 @Service
 @Transactional
-public class JPACourseService {
+public class CourseService {
 	private final CourseRepository courseRepository;
 
-	public JPACourseService(CourseRepository courseRepository) {
+	public CourseService(CourseRepository courseRepository) {
 		this.courseRepository = courseRepository;
 	}
 
-	public Optional<Course> findCoursesWithLessOrEqualsStudents(Integer students) {
-		return courseRepository.findCoursesWithLessOrEqualsStudents(students);
+	public List<Course> findCoursesWithLessOrEqualsStudents(long maxStudents) {
+		return courseRepository.findCoursesWithLessOrEqualsStudents(maxStudents);
 	}
 
 	public int createCourse(Course course) {

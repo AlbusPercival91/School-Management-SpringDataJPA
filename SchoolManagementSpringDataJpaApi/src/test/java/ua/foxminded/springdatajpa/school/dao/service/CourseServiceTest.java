@@ -1,7 +1,6 @@
 package ua.foxminded.springdatajpa.school.dao.service;
 
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,12 +27,12 @@ import ua.foxminded.springdatajpa.school.testdata.GroupMaker;
 import ua.foxminded.springdatajpa.school.testdata.StudentMaker;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
-		JPACourseService.class }))
+		CourseService.class }))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test-container")
 @Sql(scripts = { "/drop_data.sql", "/init_tables.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class JPACourseDaoTest {
+class CourseServiceTest {
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -48,7 +47,7 @@ class JPACourseDaoTest {
 	private StudentCourseRepository studentCourseRepository;
 
 	@Autowired
-	private JPACourseService courseService;
+	private CourseService courseService;
 
 	private TestDataGenerator testData;
 
@@ -64,10 +63,10 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		Optional<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(number);
+		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(number);
 		Assertions.assertNotNull(actual);
 
-		Assertions.assertTrue(actual.get().getId() > 0);
+		Assertions.assertTrue(actual.size() > 0);
 	}
 
 	@Test
@@ -75,7 +74,7 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		Optional<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(0);
+		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}
