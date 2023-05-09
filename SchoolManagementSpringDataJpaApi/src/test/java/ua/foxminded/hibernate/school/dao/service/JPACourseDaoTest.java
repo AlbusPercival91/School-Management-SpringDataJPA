@@ -1,6 +1,8 @@
 package ua.foxminded.hibernate.school.dao.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,10 +65,10 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(number);
+		Optional<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(number);
 		Assertions.assertNotNull(actual);
 
-		Assertions.assertTrue(actual.size() > 0);
+		Assertions.assertTrue(actual.get().getId() > 0);
 	}
 
 	@Test
@@ -74,7 +76,7 @@ class JPACourseDaoTest {
 		testData.createStudent();
 		testData.createCourse();
 		testData.createCourseStudentRelation();
-		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(0);
+		Optional<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}

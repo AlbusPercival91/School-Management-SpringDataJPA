@@ -14,7 +14,7 @@ public class JPACourseService {
 		this.courseRepository = courseRepository;
 	}
 
-	public List<Course> findCoursesWithLessOrEqualsStudents(Integer students) {
+	public Optional<Course> findCoursesWithLessOrEqualsStudents(Integer students) {
 		return courseRepository.findCoursesWithLessOrEqualsStudents(students);
 	}
 

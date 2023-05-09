@@ -1,8 +1,6 @@
 package ua.foxminded.hibernate.school.dao.interfaces;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +12,8 @@ import ua.foxminded.hibernate.school.entity.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-	@Modifying
 	@Query("SELECT c FROM Course c JOIN StudentCourseRelation scr ON c.id = scr.courseId GROUP BY c HAVING COUNT(scr) <= :students")
-	List<Course> findCoursesWithLessOrEqualsStudents(Integer students);
+	Optional<Course> findCoursesWithLessOrEqualsStudents(Integer students);
 
 	@Query("SELECT c FROM Course c WHERE c.courseName = :courseName")
 	Optional<Course> findByCourseName(@Param("courseName") String courseName);
