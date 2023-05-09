@@ -25,7 +25,6 @@ public class JPACourseService {
 
 	public int editCourseNameAndDescription(String courseName, String newCourseName, String newDescription) {
 		Optional<Course> optionalCourse = courseRepository.findByCourseName(courseName);
-
 		if (optionalCourse.isEmpty()) {
 			throw new IllegalArgumentException("Course not found");
 		}

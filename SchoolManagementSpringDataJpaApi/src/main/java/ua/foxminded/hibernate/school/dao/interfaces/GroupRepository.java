@@ -15,7 +15,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 	@Query("SELECT g FROM Group g JOIN Student s ON g.id = s.groupId GROUP BY g HAVING COUNT(s) <= :students")
 	public List<Group> findGroupsWithLessOrEqualsStudents(Integer students);
 
-	@Modifying
 	@Query("SELECT g FROM Group g WHERE g.groupName = :groupName")
 	Optional<Group> findByGroupName(@Param("groupName") String groupName);
 

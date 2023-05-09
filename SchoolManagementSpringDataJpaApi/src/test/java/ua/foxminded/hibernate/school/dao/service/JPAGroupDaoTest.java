@@ -17,7 +17,6 @@ import ua.foxminded.hibernate.school.dao.interfaces.CourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.GroupRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentCourseRepository;
 import ua.foxminded.hibernate.school.dao.interfaces.StudentRepository;
-import ua.foxminded.hibernate.school.dao.service.JPAGroupService;
 import ua.foxminded.hibernate.school.dao.testdata.JPAGeneratorDataDao;
 import ua.foxminded.hibernate.school.entity.Group;
 import ua.foxminded.hibernate.school.testdata.CourseMaker;
@@ -43,6 +42,9 @@ class JPAGroupDaoTest {
 
 	@Autowired
 	private StudentCourseRepository studentCourseRepository;
+	
+	@Autowired
+	private JPAGroupService groupService;
 
 	private TestDataGenerator testData;
 
@@ -58,7 +60,7 @@ class JPAGroupDaoTest {
 		testData.createGroup();
 		testData.createStudent();
 		Pattern pattern = Pattern.compile("[a-z]{2}-[0-9]{2}");
-		List<Group> actual = groupRepository.findGroupsWithLessOrEqualsStudents(number);
+		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(number);
 		int matchedPattern = (int) actual.stream().map(Group::toString).map(pattern::matcher).filter(Matcher::find)
 				.count();
 
@@ -69,7 +71,7 @@ class JPAGroupDaoTest {
 	void testFindGroupsWithLessOrEqualsStudents_WhenStudentsZero_ShouldReturnEmptyList() {
 		testData.createGroup();
 		testData.createStudent();
-		List<Group> actual = groupRepository.findGroupsWithLessOrEqualsStudents(0);
+		List<Group> actual = groupService.findGroupsWithLessOrEqualsStudents(0);
 
 		Assertions.assertTrue(actual.isEmpty());
 	}
@@ -79,20 +81,20 @@ class JPAGroupDaoTest {
 			"!@-@$, )&-%^" })
 	void testEditGroupName_ShouldReturnOneIfGroupUpdated(Group group, Group newGroup) {
 		groupRepository.save(group);
-		Assertions.assertEquals(1, groupRepository.editGroupName(group.getGroupName(), newGroup.getGroupName()));
+		Assertions.assertEquals(1, groupService.editGroupName(group.getGroupName(), newGroup.getGroupName()));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "aa-34", "35-aa", "test", "123", "aa-aa", "00-00", "!@-@$" })
 	void testDeleteGroupByName_ShouldReturnOneIfGroupDeleted(Group group) {
 		groupRepository.save(group);
-		Assertions.assertEquals(1, groupRepository.deleteGroupByName(group.getGroupName()));
+		Assertions.assertEquals(1, groupService.deleteGroupByName(group.getGroupName()));
 	}
 
 	@Test
 	void testShowAllGroups_ShouldReturnAllGroups() {
 		testData.createGroup();
-		List<Group> actual = groupRepository.findAll();
+		List<Group> actual = groupService.showAllGroups();
 
 		Assertions.assertEquals(10, actual.size());
 	}

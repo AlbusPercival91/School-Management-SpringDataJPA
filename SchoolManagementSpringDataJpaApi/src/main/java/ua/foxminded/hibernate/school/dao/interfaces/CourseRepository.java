@@ -18,7 +18,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query("SELECT c FROM Course c JOIN StudentCourseRelation scr ON c.id = scr.courseId GROUP BY c HAVING COUNT(scr) <= :students")
 	List<Course> findCoursesWithLessOrEqualsStudents(Integer students);
 
-	@Modifying
 	@Query("SELECT c FROM Course c WHERE c.courseName = :courseName")
 	Optional<Course> findByCourseName(@Param("courseName") String courseName);
 
