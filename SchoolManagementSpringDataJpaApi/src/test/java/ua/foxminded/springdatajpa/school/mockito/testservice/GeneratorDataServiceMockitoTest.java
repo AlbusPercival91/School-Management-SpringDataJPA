@@ -16,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataDao;
 import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataService;
 import ua.foxminded.springdatajpa.school.entity.Course;
@@ -29,79 +28,79 @@ import ua.foxminded.springdatajpa.school.facade.SchoolManager;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class GeneratorDataServiceMockitoTest {
 
-  @Autowired
-  private JPAGeneratorDataService service;
+	@Autowired
+	private JPAGeneratorDataService service;
 
-  @MockBean
-  private JPAGeneratorDataDao repository;
+	@MockBean
+	private JPAGeneratorDataDao repository;
 
-  @MockBean
-  private SchoolManager schoolManager;
+	@MockBean
+	private SchoolManager schoolManager;
 
-  @Captor
-  private ArgumentCaptor<Course> courseCaptor;
+	@Captor
+	private ArgumentCaptor<Course> courseCaptor;
 
-  @Captor
-  private ArgumentCaptor<Student> studentCaptor;
+	@Captor
+	private ArgumentCaptor<Student> studentCaptor;
 
-  @Captor
-  private ArgumentCaptor<Group> groupCaptor;
+	@Captor
+	private ArgumentCaptor<Group> groupCaptor;
 
-  @Captor
-  private ArgumentCaptor<StudentCourseRelation> relationCaptor;
+	@Captor
+	private ArgumentCaptor<StudentCourseRelation> relationCaptor;
 
-  private AutoCloseable closeable;
+	private AutoCloseable closeable;
 
-  @BeforeEach
-  public void open() {
-    closeable = MockitoAnnotations.openMocks(this);
-  }
+	@BeforeEach
+	public void open() {
+		closeable = MockitoAnnotations.openMocks(this);
+	}
 
-  @AfterEach
-  public void release() throws Exception {
-    closeable.close();
-  }
+	@AfterEach
+	public void release() throws Exception {
+		closeable.close();
+	}
 
-  @Test
-  void shouldCreateStudent() {
-    service.createStudent();
-    verify(repository, Mockito.times(200)).createStudent(studentCaptor.capture());
-    List<Student> capturedStudents = studentCaptor.getAllValues();
-    Assertions.assertEquals(200, capturedStudents.size());
-    capturedStudents.forEach(student -> Assertions.assertNotNull(student.getFirstName()));
-  }
+	@Test
+	void shouldCreateStudent() {
+		service.createStudent();
+		verify(repository, Mockito.times(200)).createStudent(studentCaptor.capture());
+		List<Student> capturedStudents = studentCaptor.getAllValues();
+		Assertions.assertEquals(200, capturedStudents.size());
+		capturedStudents.forEach(student -> Assertions.assertNotNull(student.getFirstName()));
+	}
 
-  @Test
-  void shouldCreateGroup() {
-    service.createGroup();
-    verify(repository, Mockito.times(10)).createGroup(groupCaptor.capture());
-    List<Group> capturedGroups = groupCaptor.getAllValues();
-    Assertions.assertEquals(10, capturedGroups.size());
-    capturedGroups.forEach(group -> Assertions.assertNotNull(group.getGroupName()));
-  }
+	@Test
+	void shouldCreateGroup() {
+		service.createGroup();
+		verify(repository, Mockito.times(10)).createGroup(groupCaptor.capture());
+		List<Group> capturedGroups = groupCaptor.getAllValues();
+		Assertions.assertEquals(10, capturedGroups.size());
+		capturedGroups.forEach(group -> Assertions.assertNotNull(group.getGroupName()));
+	}
 
-  @Test
-  void shouldCreateCourse() {
-    service.createCourse();
-    verify(repository, Mockito.times(10)).createCourse(courseCaptor.capture());
-    List<Course> capturedCourses = courseCaptor.getAllValues();
-    Assertions.assertEquals(10, capturedCourses.size());
-    capturedCourses.forEach(course -> Assertions.assertNotNull(course.getCourseName()));
-  }
+	@Test
+	void shouldCreateCourse() {
+		service.createCourse();
+		verify(repository, Mockito.times(10)).createCourse(courseCaptor.capture());
+		List<Course> capturedCourses = courseCaptor.getAllValues();
+		Assertions.assertEquals(10, capturedCourses.size());
+		capturedCourses.forEach(course -> Assertions.assertNotNull(course.getCourseName()));
+	}
 
-  @Test
-  void shouldCreateCourseStudentRelation() {
-    service.createCourseStudentRelation();
-    verify(repository, Mockito.atLeast(200)).createCourseStudentRelation(relationCaptor.capture());
-    List<StudentCourseRelation> capturedRelations = relationCaptor.getAllValues();
-    Assertions.assertTrue(capturedRelations.size() >= 200);
-    capturedRelations.forEach(relation -> {
-      Assertions.assertNotNull(Integer.valueOf(relation.getStudentId()), "Student ID should not be null");
-      Assertions.assertNotNull(Integer.valueOf(relation.getCourseId()), "Course ID should not be null");
-    });
-  }
+	@Test
+	void shouldCreateCourseStudentRelation() {
+		service.createCourseStudentRelation();
+		verify(repository, Mockito.atLeast(200)).createCourseStudentRelation(relationCaptor.capture());
+		List<StudentCourseRelation> capturedRelations = relationCaptor.getAllValues();
+		Assertions.assertTrue(capturedRelations.size() >= 200);
+		capturedRelations.forEach(relation -> {
+			Assertions.assertNotNull(Integer.valueOf(relation.getStudentId()), "Student ID should not be null");
+			Assertions.assertNotNull(Integer.valueOf(relation.getCourseId()), "Course ID should not be null");
+		});
+	}
 
-  @Test
+	@Test
   void shouldGiveRowsCount() {
     when(repository.rowsCount()).thenReturn(100);
     boolean isEmpty = service.databaseIsEmpty();
