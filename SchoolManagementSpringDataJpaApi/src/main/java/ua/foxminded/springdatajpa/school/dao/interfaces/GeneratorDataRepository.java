@@ -5,7 +5,7 @@ import ua.foxminded.springdatajpa.school.entity.Group;
 import ua.foxminded.springdatajpa.school.entity.Student;
 import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 
-public interface GeneratorDataDao {
+public interface GeneratorDataRepository {
 
 	void createStudent(Student student);
 

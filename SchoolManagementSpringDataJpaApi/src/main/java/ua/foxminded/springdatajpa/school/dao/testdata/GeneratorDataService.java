@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataDao;
+import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataRepository;
 import ua.foxminded.springdatajpa.school.entity.Course;
 import ua.foxminded.springdatajpa.school.entity.Group;
 import ua.foxminded.springdatajpa.school.entity.Student;
@@ -14,7 +14,7 @@ import ua.foxminded.springdatajpa.school.testdata.GroupMaker;
 import ua.foxminded.springdatajpa.school.testdata.StudentMaker;
 
 @Service
-public class JPAGeneratorDataService {
+public class GeneratorDataService {
 
 	@Autowired
 	private StudentMaker studentMaker;
@@ -25,9 +25,9 @@ public class JPAGeneratorDataService {
 	@Autowired
 	private GroupMaker groupMaker;
 
-	private final GeneratorDataDao dataRepository;
+	private final GeneratorDataRepository dataRepository;
 
-	public JPAGeneratorDataService(GeneratorDataDao dataRepository) {
+	public GeneratorDataService(GeneratorDataRepository dataRepository) {
 		this.dataRepository = dataRepository;
 	}
 

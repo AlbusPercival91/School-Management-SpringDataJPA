@@ -20,7 +20,7 @@ import ua.foxminded.springdatajpa.school.dao.interfaces.CourseRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.GroupRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.StudentCourseRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.StudentRepository;
-import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataDao;
+import ua.foxminded.springdatajpa.school.dao.testdata.GeneratorDataDao;
 import ua.foxminded.springdatajpa.school.entity.Course;
 import ua.foxminded.springdatajpa.school.testdata.CourseMaker;
 import ua.foxminded.springdatajpa.school.testdata.GroupMaker;
@@ -54,7 +54,7 @@ class CourseServiceTest {
 	@BeforeEach
 	void setUp() {
 		testData = new TestDataGenerator(new StudentMaker(), new GroupMaker(), new CourseMaker(),
-				new JPAGeneratorDataDao(studentRepository, groupRepository, courseRepository, studentCourseRepository));
+				new GeneratorDataDao(studentRepository, groupRepository, courseRepository, studentCourseRepository));
 	}
 
 	@ParameterizedTest

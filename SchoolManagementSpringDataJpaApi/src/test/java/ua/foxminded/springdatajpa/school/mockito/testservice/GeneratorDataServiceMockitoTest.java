@@ -3,21 +3,20 @@ package ua.foxminded.springdatajpa.school.mockito.testservice;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataDao;
-import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataService;
+import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataRepository;
+import ua.foxminded.springdatajpa.school.dao.testdata.GeneratorDataService;
 import ua.foxminded.springdatajpa.school.entity.Course;
 import ua.foxminded.springdatajpa.school.entity.Group;
 import ua.foxminded.springdatajpa.school.entity.Student;
@@ -25,14 +24,15 @@ import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 import ua.foxminded.springdatajpa.school.facade.SchoolManager;
 
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class GeneratorDataServiceMockitoTest {
 
 	@Autowired
-	private JPAGeneratorDataService service;
+	private GeneratorDataService service;
 
 	@MockBean
-	private JPAGeneratorDataDao repository;
+	private GeneratorDataRepository repository;
 
 	@MockBean
 	private SchoolManager schoolManager;
@@ -48,18 +48,6 @@ class GeneratorDataServiceMockitoTest {
 
 	@Captor
 	private ArgumentCaptor<StudentCourseRelation> relationCaptor;
-
-	private AutoCloseable closeable;
-
-	@BeforeEach
-	public void open() {
-		closeable = MockitoAnnotations.openMocks(this);
-	}
-
-	@AfterEach
-	public void release() throws Exception {
-		closeable.close();
-	}
 
 	@Test
 	void shouldCreateStudent() {

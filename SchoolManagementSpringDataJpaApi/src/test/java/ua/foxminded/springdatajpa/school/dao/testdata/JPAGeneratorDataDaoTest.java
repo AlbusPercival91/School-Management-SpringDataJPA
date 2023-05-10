@@ -11,14 +11,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataDao;
+import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataRepository;
 import ua.foxminded.springdatajpa.school.entity.Course;
 import ua.foxminded.springdatajpa.school.entity.Group;
 import ua.foxminded.springdatajpa.school.entity.Student;
 import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
-    JPAGeneratorDataDao.class }))
+    GeneratorDataDao.class }))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test-container")
 @Sql(scripts = { "/drop_data.sql", "/init_tables.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -26,7 +26,7 @@ import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 class JPAGeneratorDataDaoTest {
 
   @Autowired
-  private GeneratorDataDao generatorDataDao;
+  private GeneratorDataRepository generatorDataDao;
 
   @Test
   void testCreateStudent() {

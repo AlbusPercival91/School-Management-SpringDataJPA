@@ -3,7 +3,7 @@ package ua.foxminded.springdatajpa.school.dao.service;
 import java.util.Map;
 import java.util.Set;
 
-import ua.foxminded.springdatajpa.school.dao.testdata.JPAGeneratorDataDao;
+import ua.foxminded.springdatajpa.school.dao.testdata.GeneratorDataDao;
 import ua.foxminded.springdatajpa.school.entity.Course;
 import ua.foxminded.springdatajpa.school.entity.Group;
 import ua.foxminded.springdatajpa.school.entity.Student;
@@ -16,10 +16,10 @@ public class TestDataGenerator {
   private final StudentMaker studentMaker;
   private final GroupMaker groupMaker;
   private final CourseMaker courseMaker;
-  private final JPAGeneratorDataDao generatorDataDao;
+  private final GeneratorDataDao generatorDataDao;
 
   public TestDataGenerator(StudentMaker studentMaker, GroupMaker groupMaker, CourseMaker courseMaker,
-      JPAGeneratorDataDao generatorDataDao) {
+      GeneratorDataDao generatorDataDao) {
     this.studentMaker = studentMaker;
     this.groupMaker = groupMaker;
     this.courseMaker = courseMaker;

@@ -3,7 +3,7 @@ package ua.foxminded.springdatajpa.school.dao.testdata;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.CourseRepository;
-import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataDao;
+import ua.foxminded.springdatajpa.school.dao.interfaces.GeneratorDataRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.GroupRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.StudentCourseRepository;
 import ua.foxminded.springdatajpa.school.dao.interfaces.StudentRepository;
@@ -14,13 +14,13 @@ import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 
 @Repository
 @Transactional
-public class JPAGeneratorDataDao implements GeneratorDataDao {
+public class GeneratorDataDao implements GeneratorDataRepository {
 	private final StudentRepository studentRepository;
 	private final GroupRepository groupRepository;
 	private final CourseRepository courseRepository;
 	private final StudentCourseRepository studentCourseRepository;
 
-	public JPAGeneratorDataDao(StudentRepository studentRepository, GroupRepository groupRepository,
+	public GeneratorDataDao(StudentRepository studentRepository, GroupRepository groupRepository,
 			CourseRepository courseRepository, StudentCourseRepository studentCourseRepository) {
 		this.studentRepository = studentRepository;
 		this.groupRepository = groupRepository;
