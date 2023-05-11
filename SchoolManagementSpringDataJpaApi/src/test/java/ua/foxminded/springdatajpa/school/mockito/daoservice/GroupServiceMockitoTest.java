@@ -24,7 +24,7 @@ import ua.foxminded.springdatajpa.school.facade.SchoolManager;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class JPAGroupServiceMockitoTest {
+class GroupServiceMockitoTest {
 
 	@Autowired
 	private GroupService groupService;
