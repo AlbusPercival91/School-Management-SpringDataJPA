@@ -77,8 +77,10 @@ class GroupServiceMockitoTest {
 	void shouldEditGroupName(int id, String groupName, String newGroupName) {
 		Group group = new Group(groupName);
 		group.setId(id);
+		Group newGroup = new Group(newGroupName);
+		newGroup.setId(id);
 		when(groupRepository.findByGroupName(groupName)).thenReturn(Optional.of(group));
-		when(groupRepository.save(group)).thenReturn(group);
+		when(groupRepository.save(group)).thenReturn(newGroup);
 		Integer actualId = groupService.editGroupName(groupName, newGroupName);
 
 		Assertions.assertNotNull(actualId);

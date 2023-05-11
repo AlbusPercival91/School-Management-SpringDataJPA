@@ -81,8 +81,10 @@ class CourseServiceMockitoTest {
 			String newCourseDescription) {
 		Course course = new Course(courseName, courseDescription);
 		course.setId(id);
+		Course newCourse = new Course(newCourseName, newCourseDescription);
+		newCourse.setId(id);
 		when(courseRepository.findByCourseName(courseName)).thenReturn(Optional.of(course));
-		when(courseRepository.save(course)).thenReturn(course);
+		when(courseRepository.save(course)).thenReturn(newCourse);
 		Integer actualId = courseService.editCourseNameAndDescription(courseName, newCourseName, newCourseDescription);
 
 		Assertions.assertNotNull(actualId);
