@@ -99,11 +99,11 @@ class CourseServiceMockitoTest {
 		Integer actualCount = courseService.deleteCourseByName(courseName);
 
 		Assertions.assertEquals(expectedCount, actualCount);
-		verify(courseRepository).deleteCourseByName(courseName);
+		verify(courseRepository, Mockito.times(1)).deleteCourseByName(courseName);
 	}
 
 	@ParameterizedTest
-	@CsvSource({ "History", "Swimming", "Paint", "Spanish", "Geography" })
+	@CsvSource({ "Ecomomic", "Swimming", "Paint", "Spanish", "Geography" })
 	void shouldShowAllCourses(String courseName) {
 		Course course = new Course(courseName);
 		List<Course> courses = Collections.singletonList(course);
