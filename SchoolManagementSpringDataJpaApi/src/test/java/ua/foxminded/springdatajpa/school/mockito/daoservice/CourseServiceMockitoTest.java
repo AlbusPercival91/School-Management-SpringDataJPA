@@ -90,7 +90,7 @@ class CourseServiceMockitoTest {
 		Course actualCourse = courseService.editCourseNameAndDescription(courseName, newCourseName,
 				newCourseDescription);
 
-		Assertions.assertNotNull(expectedCourse);
+		Assertions.assertNotNull(actualCourse);
 		Assertions.assertEquals(expectedCourse.toString(), actualCourse.toString());
 		verify(courseRepository).save(course);
 		verify(courseRepository).findByCourseName(courseName);
