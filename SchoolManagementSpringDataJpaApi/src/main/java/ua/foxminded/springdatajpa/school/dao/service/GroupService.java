@@ -25,7 +25,7 @@ public class GroupService {
 		return savedGroup.getId();
 	}
 
-	public int editGroupName(String groupName, String newGroupName) {
+	public Group editGroupName(String groupName, String newGroupName) {
 		Optional<Group> optionalGroup = groupRepository.findByGroupName(groupName);
 
 		if (optionalGroup.isEmpty()) {
@@ -33,8 +33,7 @@ public class GroupService {
 		}
 		Group group = optionalGroup.get();
 		group.setGroupName(newGroupName);
-		Group savedGroup = groupRepository.save(group);
-		return savedGroup.getId();
+		return groupRepository.save(group);
 	}
 
 	public int deleteGroupByName(String groupName) {

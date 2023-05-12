@@ -55,8 +55,9 @@ public class CourseMenuComponents {
 			if (!newCourseName.isEmpty()) {
 				log.info(MenuConstants.COURSE_DESCRIPTION);
 				String newCourseDescription = scan.nextLine();
-				log.info(courseService.editCourseNameAndDescription(courseName, newCourseName, newCourseDescription)
-						+ " course name and description updated" + "\n" + MenuConstants.COURSE_MENU);
+				log.info("Course: " + courseName + " updated, new Course name: " + courseService
+						.editCourseNameAndDescription(courseName, newCourseName, newCourseDescription).getCourseName()
+						+ "\n" + MenuConstants.COURSE_MENU);
 			} else {
 				log.warn(MenuConstants.EMPTY_NOTE);
 				log.info(MenuConstants.COURSE_MENU);

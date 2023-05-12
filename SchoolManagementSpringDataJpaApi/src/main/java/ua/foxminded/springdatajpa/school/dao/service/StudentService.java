@@ -55,7 +55,7 @@ public class StudentService {
 		return studentRepository.removeStudentFromCourse(studentId, courseName);
 	}
 
-	public int updateStudentById(Integer studentId, Student student) {
+	public Student updateStudentById(Integer studentId, Student student) {
 		Optional<Student> optionalStudent = studentRepository.findById(studentId);
 
 		if (optionalStudent.isEmpty()) {
@@ -65,8 +65,7 @@ public class StudentService {
 		stud.setGroupId(student.getGroupId());
 		stud.setFirstName(student.getFirstName());
 		stud.setLastName(student.getLastName());
-		Student savedStudent = studentRepository.save(stud);
-		return savedStudent.getId();
+		return studentRepository.save(stud);
 	}
 
 	public List<Student> showAllStudents() {

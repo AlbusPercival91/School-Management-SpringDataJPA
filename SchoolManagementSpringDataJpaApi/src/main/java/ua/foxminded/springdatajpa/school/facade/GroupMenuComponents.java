@@ -48,7 +48,8 @@ public class GroupMenuComponents {
 		if (groupService.showAllGroups().stream().anyMatch(group -> group.getGroupName().equals(groupName))) {
 			log.info(MenuConstants.NEW_GROUP_NAME);
 			String newGroupName = scan.nextLine();
-			log.info(groupService.editGroupName(groupName, newGroupName) + " group name updated" + "\n"
+			log.info("Group: " + groupName + " updated, new Group name: "
+					+ groupService.editGroupName(groupName, newGroupName).getGroupName() + "\n"
 					+ MenuConstants.GROUP_MENU);
 		} else {
 			log.warn(MenuConstants.NO_SUCH_GROUP);

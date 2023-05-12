@@ -40,5 +40,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	@Modifying
 	@Query("UPDATE Student s SET s.groupId = :groupId, s.firstName = :firstName, s.lastName = :lastName WHERE s.id = :studentId")
-	int updateStudentById(@Param("studentId") Integer studentId, Student student);
+	Student updateStudentById(@Param("studentId") Integer studentId, Student student);
 }

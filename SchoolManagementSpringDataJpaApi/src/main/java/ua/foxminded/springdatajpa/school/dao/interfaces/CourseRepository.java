@@ -20,7 +20,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Modifying
 	@Query("UPDATE Course c SET c.courseName = :newCourseName, c.courseDescription = :newDescription WHERE c.courseName = :courseName")
-	int editCourseNameAndDescription(@Param("courseName") String courseName,
+	Course editCourseNameAndDescription(@Param("courseName") String courseName,
 			@Param("newCourseName") String newCourseName, @Param("newDescription") String newDescription);
 
 	@Modifying

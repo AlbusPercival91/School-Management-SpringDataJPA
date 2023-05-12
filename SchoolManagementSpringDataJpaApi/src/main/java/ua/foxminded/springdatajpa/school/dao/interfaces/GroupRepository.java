@@ -20,7 +20,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 	@Modifying
 	@Query("UPDATE Group c SET c.groupName = :newGroupName WHERE c.groupName = :groupName")
-	int editGroupName(@Param("groupName") String groupName, @Param("newGroupName") String newGroupName);
+	Group editGroupName(@Param("groupName") String groupName, @Param("newGroupName") String newGroupName);
 
 	@Modifying
 	@Query("DELETE FROM Group c WHERE c.groupName = :groupName")

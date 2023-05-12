@@ -156,7 +156,8 @@ public class StudentMenuComponents {
 				newGroupId = null;
 			}
 			Student updatedStudent = new Student(newGroupId, newFirstName, newLastName);
-			log.info("Student with ID: " + studentService.updateStudentById(studentId, updatedStudent) + " updated");
+			log.info("Student with ID: " + studentId + " updated, new Data: "
+					+ studentService.updateStudentById(studentId, updatedStudent) + "\n" + MenuConstants.COURSE_MENU);
 		} else {
 			log.warn(MenuConstants.GROUP_ID_NOTE);
 		}

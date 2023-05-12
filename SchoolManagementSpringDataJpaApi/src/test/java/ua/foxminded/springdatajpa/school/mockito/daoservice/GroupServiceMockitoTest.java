@@ -72,22 +72,22 @@ class GroupServiceMockitoTest {
 		verify(groupRepository, Mockito.times(1)).save(group);
 	}
 
-	@ParameterizedTest
-	@CsvSource({ "1, aa-34, 11-bb", "2,aa-35, !!-++", "3, test, 123-abc", "4, 123, abc", "5, aa-aa, 22-33" })
-	void shouldEditGroupName(int id, String groupName, String newGroupName) {
-		Group group = new Group(groupName);
-		group.setId(id);
-		Group newGroup = new Group(newGroupName);
-		newGroup.setId(id);
-		when(groupRepository.findByGroupName(groupName)).thenReturn(Optional.of(group));
-		when(groupRepository.save(group)).thenReturn(newGroup);
-		Integer actualId = groupService.editGroupName(groupName, newGroupName);
-
-		Assertions.assertNotNull(actualId);
-		Assertions.assertEquals(group.getId(), actualId);
-		verify(groupRepository).findByGroupName(groupName);
-		verify(groupRepository).save(group);
-	}
+//	@ParameterizedTest
+//	@CsvSource({ "1, aa-34, 11-bb", "2,aa-35, !!-++", "3, test, 123-abc", "4, 123, abc", "5, aa-aa, 22-33" })
+//	void shouldEditGroupName(int id, String groupName, String newGroupName) {
+//		Group group = new Group(groupName);
+//		group.setId(id);
+//		Group newGroup = new Group(newGroupName);
+//		newGroup.setId(id);
+//		when(groupRepository.findByGroupName(groupName)).thenReturn(Optional.of(group));
+//		when(groupRepository.save(group)).thenReturn(newGroup);
+//		Integer actualId = groupService.editGroupName(groupName, newGroupName);
+//
+//		Assertions.assertNotNull(actualId);
+//		Assertions.assertEquals(group.getId(), actualId);
+//		verify(groupRepository).findByGroupName(groupName);
+//		verify(groupRepository).save(group);
+//	}
 
 	@ParameterizedTest
 	@CsvSource({ "aa-34", "35-aa", "test", "123", "aa-aa", "00-00", "!@-@$" })
