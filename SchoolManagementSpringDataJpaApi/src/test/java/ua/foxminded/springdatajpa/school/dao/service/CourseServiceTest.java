@@ -83,7 +83,7 @@ class CourseServiceTest {
 	@CsvSource({ "1, History, TBD, Geography, TBD-2", "1, Art, TBD, Paint, TBD-3", "1, Sports, TBD, Yoga, TBD-5",
 			"1, English, TBD, Spanish, TBD-6", "1, 123, TBD, 321, asdf", "1, %$#, TBD, $%^&, TBDTBD",
 			"1, !@-@$, )&-%^, Swimming, TBD" })
-	void testEditCourseNameAndDescription_ShouldReturnOneIfCourseUpdated(int id, String courseName,
+	void testEditCourseNameAndDescription_ShouldReturnNewCourseIfCourseUpdated(int id, String courseName,
 			String courseDescription, String newCourseName, String newCourseDescription) {
 		Course course = new Course(courseName, courseDescription);
 		Course expectedCourse = new Course(newCourseName, newCourseDescription);
