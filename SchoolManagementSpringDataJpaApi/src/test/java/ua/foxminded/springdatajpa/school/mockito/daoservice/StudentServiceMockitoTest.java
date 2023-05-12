@@ -1,29 +1,22 @@
 package ua.foxminded.springdatajpa.school.mockito.daoservice;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import ua.foxminded.springdatajpa.school.dao.interfaces.StudentRepository;
 import ua.foxminded.springdatajpa.school.dao.service.StudentService;
 import ua.foxminded.springdatajpa.school.entity.Student;
@@ -32,7 +25,7 @@ import ua.foxminded.springdatajpa.school.facade.SchoolManager;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class JPAStudentServiceMockitoTest {
+class StudentServiceMockitoTest {
 
 	@Autowired
 	private StudentService studentService;
