@@ -79,7 +79,7 @@ class GroupServiceTest {
 	@ParameterizedTest
 	@CsvSource({ "1,aa-34, aa-35", "1,aa-35, 35-aa", "1, test, test-test", "1, 123, 321", "1, aa-aa, bb-bb",
 			"1, 00-00, 11-11", "1, !@-@$, )&-%^" })
-	void testEditGroupName_ShouldReturnOneIfGroupUpdated(int id, Group group, Group newGroup) {
+	void testEditGroupName_ShouldReturnNewGroupIfGroupUpdated(int id, Group group, Group newGroup) {
 		Group expectedGroup = new Group(newGroup.getGroupName());
 		expectedGroup.setId(id);
 		groupService.createGroup(group);
