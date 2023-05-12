@@ -43,9 +43,9 @@ class CourseServiceMockitoTest {
 		when(courseRepository.findCoursesWithLessOrEqualsStudents(numberOfStudents)).thenReturn(courses);
 		List<Course> actual = courseService.findCoursesWithLessOrEqualsStudents(numberOfStudents);
 
-		Assertions.assertEquals(courses.size(), actual.size(), "Expected number of courses to match actual");
+		Assertions.assertEquals(courses.size(), actual.size());
 		Course actualCourse = actual.get(0);
-		Assertions.assertEquals(courseName, actualCourse.getCourseName(), "Expected course name to match actual");
+		Assertions.assertEquals(courseName, actualCourse.getCourseName());
 		verify(courseRepository, Mockito.times(1)).findCoursesWithLessOrEqualsStudents(numberOfStudents);
 	}
 
@@ -74,24 +74,27 @@ class CourseServiceMockitoTest {
 		verify(courseRepository).save(course);
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({ "1, History, TBD, Geography, TBD-2", "2, Art, TBD, Paint, TBD-3", "3, Sports, TBD, Yoga, TBD-5",
-//			"4, English, TBD, Spanish, TBD-6", "5, 123, TBD, 321, asdf" })
-//	void shouldEditCourseNameAndDescription(int id, String courseName, String courseDescription, String newCourseName,
-//			String newCourseDescription) {
-//		Course course = new Course(courseName, courseDescription);
-//		course.setId(id);
-//		Course newCourse = new Course(newCourseName, newCourseDescription);
-//		newCourse.setId(id);
-//		when(courseRepository.findByCourseName(courseName)).thenReturn(Optional.of(course));
-//		when(courseRepository.save(course)).thenReturn(newCourse);
-//		Integer actualId = courseService.editCourseNameAndDescription(courseName, newCourseName, newCourseDescription);
-//
-//		Assertions.assertNotNull(actualId);
-//		Assertions.assertEquals(course.getId(), actualId);
-//		verify(courseRepository).findByCourseName(courseName);
-//		verify(courseRepository).save(course);
-//	}
+	@ParameterizedTest
+	@CsvSource({ "1, History, TBD, Geography, TBD-2", "2, Art, TBD, Paint, TBD-3", "3, Sports, TBD, Yoga, TBD-5",
+			"4, English, TBD, Spanish, TBD-6", "5, 123, TBD, 321, asdf" })
+	void shouldEditCourseNameAndDescription(int id, String courseName, String courseDescription, String newCourseName,
+			String newCourseDescription) {
+		Course course = new Course(courseName, courseDescription);
+		course.setId(id);
+		Course expectedCourse = new Course(newCourseName, newCourseDescription);
+		expectedCourse.setId(id);
+		when(courseRepository.save(course)).thenReturn(course);
+		when(courseRepository.findByCourseName(courseName)).thenReturn(Optional.of(course));
+		when(courseRepository.editCourseNameAndDescription(courseName, newCourseName, newCourseDescription))
+				.thenReturn(expectedCourse);
+		Course actualCourse = courseService.editCourseNameAndDescription(courseName, newCourseName,
+				newCourseDescription);
+
+		Assertions.assertNotNull(expectedCourse);
+		Assertions.assertEquals(expectedCourse.toString(), actualCourse.toString());
+		verify(courseRepository).save(course);
+		verify(courseRepository).findByCourseName(courseName);
+	}
 
 	@ParameterizedTest
 	@CsvSource({ "History", "Swimming", "Paint", "Spanish", "Geography" })
