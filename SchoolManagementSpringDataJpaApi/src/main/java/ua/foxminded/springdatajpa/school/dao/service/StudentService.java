@@ -59,7 +59,7 @@ public class StudentService {
 		Optional<Student> optionalStudent = studentRepository.findById(studentId);
 
 		if (optionalStudent.isEmpty()) {
-			throw new IllegalArgumentException("Course not found");
+			throw new IllegalArgumentException("Student not found");
 		}
 		Student stud = optionalStudent.get();
 		stud.setGroupId(student.getGroupId());
