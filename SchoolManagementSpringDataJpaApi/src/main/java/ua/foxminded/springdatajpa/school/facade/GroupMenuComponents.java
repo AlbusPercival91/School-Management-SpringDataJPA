@@ -63,7 +63,7 @@ public class GroupMenuComponents {
 		String groupName = scan.nextLine();
 
 		if (groupService.showAllGroups().stream().anyMatch(group -> group.getGroupName().equals(groupName))) {
-			log.info(groupService.deleteGroupByName(groupName) + " group deleted" + "\n" + MenuConstants.GROUP_MENU);
+			log.info(groupService.deleteByGroupName(groupName) + " group deleted" + "\n" + MenuConstants.GROUP_MENU);
 		} else {
 			log.warn(MenuConstants.NO_SUCH_GROUP);
 			log.info(MenuConstants.GROUP_MENU);

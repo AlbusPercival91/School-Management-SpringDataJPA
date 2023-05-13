@@ -89,9 +89,9 @@ class GroupServiceTest {
 
 	@ParameterizedTest
 	@CsvSource({ "aa-34", "35-aa", "test", "123", "aa-aa", "00-00", "!@-@$" })
-	void testDeleteGroupByName_ShouldReturnOneIfGroupDeleted(Group group) {
+	void testDeleteByGroupName_ShouldReturnOneIfGroupDeleted(Group group) {
 		groupRepository.save(group);
-		Assertions.assertEquals(1, groupService.deleteGroupByName(group.getGroupName()));
+		Assertions.assertEquals(1, groupService.deleteByGroupName(group.getGroupName()));
 	}
 
 	@Test

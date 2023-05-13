@@ -36,8 +36,8 @@ public class GroupService {
 		return groupRepository.save(group);
 	}
 
-	public int deleteGroupByName(String groupName) {
-		return groupRepository.deleteGroupByName(groupName);
+	public int deleteByGroupName(String groupName) {
+		return groupRepository.deleteByGroupName(groupName);
 	}
 
 	public List<Group> showAllGroups() {

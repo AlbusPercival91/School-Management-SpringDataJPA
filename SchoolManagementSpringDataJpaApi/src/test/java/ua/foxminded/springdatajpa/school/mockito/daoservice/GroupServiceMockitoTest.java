@@ -95,11 +95,11 @@ class GroupServiceMockitoTest {
 	@CsvSource({ "aa-34", "35-aa", "test", "123", "aa-aa", "00-00", "!@-@$" })
 	void shouldDeleteGroupByName(String groupName) {
 		Integer expectedCount = 1;
-		when(groupRepository.deleteGroupByName(groupName)).thenReturn(expectedCount);
-		Integer actualCount = groupService.deleteGroupByName(groupName);
+		when(groupRepository.deleteByGroupName(groupName)).thenReturn(expectedCount);
+		Integer actualCount = groupService.deleteByGroupName(groupName);
 
 		Assertions.assertEquals(expectedCount, actualCount);
-		verify(groupRepository, Mockito.times(1)).deleteGroupByName(groupName);
+		verify(groupRepository, Mockito.times(1)).deleteByGroupName(groupName);
 	}
 
 	@ParameterizedTest
