@@ -37,8 +37,8 @@ public class CourseService {
 		return courseRepository.save(course);
 	}
 
-	public int deleteCourseByName(String courseName) {
-		return courseRepository.deleteCourseByName(courseName);
+	public int deleteByCourseName(String courseName) {
+		return courseRepository.deleteByCourseName(courseName);
 	}
 
 	public List<Course> showAllCourses() {

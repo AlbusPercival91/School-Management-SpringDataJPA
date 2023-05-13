@@ -100,11 +100,11 @@ class CourseServiceMockitoTest {
 	@CsvSource({ "History", "Swimming", "Paint", "Spanish", "Geography" })
 	void shouldDeleteCourseByName(String courseName) {
 		Integer expectedCount = 1;
-		when(courseRepository.deleteCourseByName(courseName)).thenReturn(expectedCount);
-		Integer actualCount = courseService.deleteCourseByName(courseName);
+		when(courseRepository.deleteByCourseName(courseName)).thenReturn(expectedCount);
+		Integer actualCount = courseService.deleteByCourseName(courseName);
 
 		Assertions.assertEquals(expectedCount, actualCount);
-		verify(courseRepository, Mockito.times(1)).deleteCourseByName(courseName);
+		verify(courseRepository, Mockito.times(1)).deleteByCourseName(courseName);
 	}
 
 	@ParameterizedTest

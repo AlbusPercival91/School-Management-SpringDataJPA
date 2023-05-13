@@ -15,15 +15,12 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query("SELECT c FROM Course c JOIN StudentCourseRelation scr ON c.id = scr.courseId GROUP BY c HAVING COUNT(scr) <= :students")
 	List<Course> findCoursesWithLessOrEqualsStudents(@Param("students") long maxStudents);
 
-	@Query("SELECT c FROM Course c WHERE c.courseName = :courseName")
-	Optional<Course> findByCourseName(@Param("courseName") String courseName);
+	Optional<Course> findByCourseName(String courseName);
 
 	@Modifying
 	@Query("UPDATE Course c SET c.courseName = :newCourseName, c.courseDescription = :newDescription WHERE c.courseName = :courseName")
 	Course editCourseNameAndDescription(@Param("courseName") String courseName,
 			@Param("newCourseName") String newCourseName, @Param("newDescription") String newDescription);
 
-	@Modifying
-	@Query("DELETE FROM Course c WHERE c.courseName = :courseName")
-	int deleteCourseByName(@Param("courseName") String courseName);
+	int deleteByCourseName(String courseName);
 }

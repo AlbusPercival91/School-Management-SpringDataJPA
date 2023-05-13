@@ -98,11 +98,11 @@ class CourseServiceTest {
 	@ParameterizedTest
 	@DisplayName("Should return 1 if 1 course deleted")
 	@CsvSource({ "History, TBD", "Swimming, TBD", "Paint, TBD-3", "Spanish, TBD-6", "Geography, TBD-2" })
-	void testDeleteCourseByName_ShouldReturnOneIfCourseDeleted(String courseName, String courseDescription) {
+	void testDeleteByCourseName_ShouldReturnOneIfCourseDeleted(String courseName, String courseDescription) {
 		Course course = new Course(courseName, courseDescription);
 		courseService.createCourse(course);
 
-		Assertions.assertEquals(1, courseService.deleteCourseByName(course.getCourseName()));
+		Assertions.assertEquals(1, courseService.deleteByCourseName(course.getCourseName()));
 	}
 
 	@Test

@@ -74,7 +74,7 @@ public class CourseMenuComponents {
 		String courseName = scan.nextLine();
 
 		if (courseService.showAllCourses().stream().anyMatch(course -> course.getCourseName().equals(courseName))) {
-			log.info(courseService.deleteCourseByName(courseName) + " course deleted" + "\n"
+			log.info(courseService.deleteByCourseName(courseName) + " course deleted" + "\n"
 					+ MenuConstants.COURSE_MENU);
 		} else {
 			log.warn(MenuConstants.NO_SUCH_COURSE + "\n" + MenuConstants.COURSE_MENU);
