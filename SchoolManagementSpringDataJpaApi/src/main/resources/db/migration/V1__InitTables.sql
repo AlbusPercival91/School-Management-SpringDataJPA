@@ -24,17 +24,3 @@ CREATE TABLE IF NOT EXISTS school.course
     course_description character varying,
     CONSTRAINT courses_pkey PRIMARY KEY (course_id)
 );
-
-CREATE TABLE IF NOT EXISTS school.students_courses_checkouts
-(
-    checkouts_id SERIAL,
-    student_id integer NOT NULL,
-    course_id integer NOT NULL,
-    CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (checkouts_id),
-    CONSTRAINT course_id FOREIGN KEY (course_id) REFERENCES school.course (course_id)
-    ON UPDATE NO ACTION
-    ON DELETE CASCADE,
-    CONSTRAINT student_id FOREIGN KEY (student_id) REFERENCES school.students (student_id)
-    ON UPDATE NO ACTION
-    ON DELETE CASCADE
-);
