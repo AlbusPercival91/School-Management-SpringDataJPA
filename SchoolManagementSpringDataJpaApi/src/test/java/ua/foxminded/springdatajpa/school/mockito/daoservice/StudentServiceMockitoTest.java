@@ -57,7 +57,7 @@ class StudentServiceMockitoTest {
 	@CsvSource({ "12, Art", "190, Literature", "19, Computer Science", "21, Geography", "193, Physical Science",
 			"1, Life Science", "9, English", "2, Mathematics", "150, Sports", "7, History" })
 	void shouldAddStudentToTheCourse(int studentId, String courseName) {
-		Integer expectedCount = 1;
+		final int expectedCount = 1;
 		when(studentRepository.addStudentToTheCourse(studentId, courseName)).thenReturn(expectedCount);
 		Integer actualCount = studentService.addStudentToTheCourse(studentId, courseName);
 
@@ -114,7 +114,7 @@ class StudentServiceMockitoTest {
 	@CsvSource({ "12, Art", "190, Literature", "19, Computer Science", "21, Geography", "193, Physical Science",
 			"1, Life Science", "9, English", "2, Mathematics", "150, Sports", "7, History" })
 	void shouldRemoveStudentFromCourse(int studentId, String courseName) {
-		Integer expectedCount = 1;
+		final int expectedCount = 1;
 		when(studentRepository.removeStudentFromCourse(studentId, courseName)).thenReturn(expectedCount);
 		Integer actualCount = studentService.removeStudentFromCourse(studentId, courseName);
 

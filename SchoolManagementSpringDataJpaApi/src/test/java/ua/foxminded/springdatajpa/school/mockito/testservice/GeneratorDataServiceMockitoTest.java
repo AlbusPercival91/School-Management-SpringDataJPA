@@ -89,10 +89,10 @@ class GeneratorDataServiceMockitoTest {
 	}
 
 	@Test
-  void shouldGiveRowsCount() {
-    when(repository.rowsCount()).thenReturn(100);
-    boolean isEmpty = service.databaseIsEmpty();
-    verify(repository, Mockito.times(1)).rowsCount();
-    Assertions.assertFalse(isEmpty);
-  }
+    void shouldGiveRowsCount() {
+        when(repository.rowsCount()).thenReturn(100);
+        boolean isEmpty = service.databaseIsEmpty();
+        verify(repository, Mockito.times(1)).rowsCount();
+        Assertions.assertFalse(isEmpty);
+    }
 }

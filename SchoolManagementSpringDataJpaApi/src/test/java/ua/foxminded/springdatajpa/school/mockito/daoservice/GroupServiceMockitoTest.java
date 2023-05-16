@@ -65,7 +65,7 @@ class GroupServiceMockitoTest {
 		Group group = new Group(groupName);
 		group.setId(id);
 		when(groupRepository.save(group)).thenReturn(group);
-		Integer actualGroupId = groupService.createGroup(group);
+		int actualGroupId = groupService.createGroup(group);
 
 		Assertions.assertNotNull(group.getGroupName());
 		Assertions.assertEquals(group.getId(), actualGroupId);
@@ -94,9 +94,9 @@ class GroupServiceMockitoTest {
 	@ParameterizedTest
 	@CsvSource({ "aa-34", "35-aa", "test", "123", "aa-aa", "00-00", "!@-@$" })
 	void shouldDeleteGroupByName(String groupName) {
-		Integer expectedCount = 1;
+		final int expectedCount = 1;
 		when(groupRepository.deleteByGroupName(groupName)).thenReturn(expectedCount);
-		Integer actualCount = groupService.deleteByGroupName(groupName);
+		int actualCount = groupService.deleteByGroupName(groupName);
 
 		Assertions.assertEquals(expectedCount, actualCount);
 		verify(groupRepository, Mockito.times(1)).deleteByGroupName(groupName);
