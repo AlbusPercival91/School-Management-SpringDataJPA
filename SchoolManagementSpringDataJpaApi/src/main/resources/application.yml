@@ -8,4 +8,4 @@ spring:
       pool-size: 30
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
