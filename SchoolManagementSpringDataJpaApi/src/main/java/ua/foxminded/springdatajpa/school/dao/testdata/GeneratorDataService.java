@@ -38,21 +38,21 @@ public class GeneratorDataService {
 				studentMaker.generateSurnames(20))) {
 			Student student = new Student(groupMaker.assignGroupId().get(i++), s.substring(0, s.indexOf(" ")),
 					s.substring(s.indexOf(" ")));
-			dataRepository.createStudent(student);
+			dataRepository.createStudents(student);
 		}
 	}
 
 	public void createGroup() {
 		for (String s : groupMaker.generateGroups()) {
 			Group group = new Group(s);
-			dataRepository.createGroup(group);
+			dataRepository.createGroups(group);
 		}
 	}
 
 	public void createCourse() {
 		for (String s : courseMaker.generateCourses()) {
 			Course course = new Course(s, "TBD");
-			dataRepository.createCourse(course);
+			dataRepository.createCourses(course);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class GeneratorDataService {
 
 			for (Integer i : value) {
 				StudentCourseRelation scRelation = new StudentCourseRelation(key, i);
-				dataRepository.createCourseStudentRelation(scRelation);
+				dataRepository.createCourseStudentRelations(scRelation);
 			}
 		}
 	}

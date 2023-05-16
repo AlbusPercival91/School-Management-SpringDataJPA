@@ -52,7 +52,7 @@ class GeneratorDataServiceMockitoTest {
 	@Test
 	void shouldCreateStudent() {
 		service.createStudent();
-		verify(repository, Mockito.times(200)).createStudent(studentCaptor.capture());
+		verify(repository, Mockito.times(200)).createStudents(studentCaptor.capture());
 		List<Student> capturedStudents = studentCaptor.getAllValues();
 		Assertions.assertEquals(200, capturedStudents.size());
 		capturedStudents.forEach(student -> Assertions.assertNotNull(student.getFirstName()));
@@ -61,7 +61,7 @@ class GeneratorDataServiceMockitoTest {
 	@Test
 	void shouldCreateGroup() {
 		service.createGroup();
-		verify(repository, Mockito.times(10)).createGroup(groupCaptor.capture());
+		verify(repository, Mockito.times(10)).createGroups(groupCaptor.capture());
 		List<Group> capturedGroups = groupCaptor.getAllValues();
 		Assertions.assertEquals(10, capturedGroups.size());
 		capturedGroups.forEach(group -> Assertions.assertNotNull(group.getGroupName()));
@@ -70,7 +70,7 @@ class GeneratorDataServiceMockitoTest {
 	@Test
 	void shouldCreateCourse() {
 		service.createCourse();
-		verify(repository, Mockito.times(10)).createCourse(courseCaptor.capture());
+		verify(repository, Mockito.times(10)).createCourses(courseCaptor.capture());
 		List<Course> capturedCourses = courseCaptor.getAllValues();
 		Assertions.assertEquals(10, capturedCourses.size());
 		capturedCourses.forEach(course -> Assertions.assertNotNull(course.getCourseName()));
@@ -79,7 +79,7 @@ class GeneratorDataServiceMockitoTest {
 	@Test
 	void shouldCreateCourseStudentRelation() {
 		service.createCourseStudentRelation();
-		verify(repository, Mockito.atLeast(200)).createCourseStudentRelation(relationCaptor.capture());
+		verify(repository, Mockito.atLeast(200)).createCourseStudentRelations(relationCaptor.capture());
 		List<StudentCourseRelation> capturedRelations = relationCaptor.getAllValues();
 		Assertions.assertTrue(capturedRelations.size() >= 200);
 		capturedRelations.forEach(relation -> {

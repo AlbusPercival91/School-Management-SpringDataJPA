@@ -32,21 +32,21 @@ public class TestDataGenerator {
     for (String s : studentMaker.generateStudents(studentMaker.generateNames(20), studentMaker.generateSurnames(20))) {
       Student student = new Student(groupMaker.assignGroupId().get(i++), s.substring(0, s.indexOf(" ")),
           s.substring(s.indexOf(" ")));
-      generatorDataDao.createStudent(student);
+      generatorDataDao.createStudents(student);
     }
   }
 
   public void createGroup() {
     for (String s : groupMaker.generateGroups()) {
       Group group = new Group(s);
-      generatorDataDao.createGroup(group);
+      generatorDataDao.createGroups(group);
     }
   }
 
   public void createCourse() {
     for (String s : courseMaker.generateCourses()) {
       Course course = new Course(s, "TBD");
-      generatorDataDao.createCourse(course);
+      generatorDataDao.createCourses(course);
     }
   }
 
@@ -57,7 +57,7 @@ public class TestDataGenerator {
 
       for (Integer i : value) {
         StudentCourseRelation scRelation = new StudentCourseRelation(key, i);
-        generatorDataDao.createCourseStudentRelation(scRelation);
+        generatorDataDao.createCourseStudentRelations(scRelation);
       }
     }
   }

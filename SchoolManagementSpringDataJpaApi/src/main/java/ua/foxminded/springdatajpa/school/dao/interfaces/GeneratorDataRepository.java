@@ -7,13 +7,13 @@ import ua.foxminded.springdatajpa.school.entity.StudentCourseRelation;
 
 public interface GeneratorDataRepository {
 
-	void createStudent(Student student);
+	void createStudents(Student student);
 
-	void createGroup(Group group);
+	void createGroups(Group group);
 
-	void createCourse(Course course);
+	void createCourses(Course course);
 
-	void createCourseStudentRelation(StudentCourseRelation scRelation);
+	void createCourseStudentRelations(StudentCourseRelation scRelation);
 
 	int rowsCount();
 }

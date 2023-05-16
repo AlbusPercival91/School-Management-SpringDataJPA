@@ -29,22 +29,22 @@ public class GeneratorDataDao implements GeneratorDataRepository {
 	}
 
 	@Override
-	public void createStudent(Student student) {
+	public void createStudents(Student student) {
 		studentRepository.save(student);
 	}
 
 	@Override
-	public void createGroup(Group group) {
+	public void createGroups(Group group) {
 		groupRepository.save(group);
 	}
 
 	@Override
-	public void createCourse(Course course) {
+	public void createCourses(Course course) {
 		courseRepository.save(course);
 	}
 
 	@Override
-	public void createCourseStudentRelation(StudentCourseRelation scRelation) {
+	public void createCourseStudentRelations(StudentCourseRelation scRelation) {
 		studentCourseRepository.save(scRelation);
 	}
 

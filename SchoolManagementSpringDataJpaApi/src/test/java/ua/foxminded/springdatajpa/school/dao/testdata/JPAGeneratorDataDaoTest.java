@@ -31,32 +31,32 @@ class JPAGeneratorDataDaoTest {
   @Test
   void testCreateStudent() {
     Student student = new Student(1, "Harry", "Potter");
-    generatorDataDao.createStudent(student);
+    generatorDataDao.createStudents(student);
     Assertions.assertEquals(1, generatorDataDao.rowsCount());
   }
 
   @Test
   void testCreateGroup() {
     Group group = new Group("Gryffindor");
-    generatorDataDao.createGroup(group);
+    generatorDataDao.createGroups(group);
     Assertions.assertEquals(1, generatorDataDao.rowsCount());
   }
 
   @Test
   void testCreateCourse() {
     Course course = new Course("Potions");
-    generatorDataDao.createCourse(course);
+    generatorDataDao.createCourses(course);
     Assertions.assertEquals(1, generatorDataDao.rowsCount());
   }
 
   @Test
   void testCreateCourseStudentRelation() {
     Student student = new Student(1, "Harry", "Potter");
-    generatorDataDao.createStudent(student);
+    generatorDataDao.createStudents(student);
     Course course = new Course("Potions");
-    generatorDataDao.createCourse(course);
+    generatorDataDao.createCourses(course);
     StudentCourseRelation scRelation = new StudentCourseRelation(student.getId(), course.getId());
-    generatorDataDao.createCourseStudentRelation(scRelation);
+    generatorDataDao.createCourseStudentRelations(scRelation);
     Assertions.assertEquals(3, generatorDataDao.rowsCount());
   }
 
